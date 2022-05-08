@@ -1,8 +1,8 @@
 import { TaskCommand } from '../../enums';
-import Producer from '../../Producer';
+import Producer from '../../../shared/Producer';
 
 const topics = [
-  { name: 'task-commands', commands: Object.values(TaskCommand) },
+  { name: 'task-commands', messageNames: Object.values(TaskCommand) },
 ];
 
 export default new Producer({ topics });

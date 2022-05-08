@@ -31,7 +31,7 @@ io.on('connect', (socket) => {
 
 const consumer = new Consumer({
   groupId: 'task-management-socket',
-  topics: 'task-events',
+  topics: ['task-events'],
   eachMessage: async (command) => {
     await Promise.all(sockets.map(async (socket) => {
       await socket.emit(command.name, JSON.stringify(command));

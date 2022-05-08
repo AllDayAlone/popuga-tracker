@@ -7,6 +7,23 @@ class Producer {
     this.producer = this.kafka.producer();
 
     this.topics = topics;
+
+    if (!topics) {
+      throw new Error('Provide topics for producer');
+    }
+
+    if (!Array.isArray(topics)) {
+      throw new Error('Topics should be array');
+    }
+
+    topics.forEach((topic) => {
+      if (!topic.name) {
+        throw new Error('Topic should have a name');
+      }
+      if (!topic.messageNames || !Array.isArray(topic.messageNames)) {
+        throw new Error(`Topic ${topic.name} is missing array of message names`);
+      }
+    });
   }
 
   async emit(command) {
@@ -30,7 +47,7 @@ class Producer {
       throw new Error('Command name was not provided');
     }
 
-    const topic = this.topics.find(({ commands }) => commands.includes(commandName));
+    const topic = this.topics.find(({ messageNames }) => messageNames.includes(commandName));
 
     if (!topic) {
       throw new Error(`Could not find topic for command name: ${commandName}`);

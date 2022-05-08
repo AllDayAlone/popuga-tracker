@@ -17,6 +17,9 @@ export default async function handler(req, res) {
       break;
     case 'GET':
       const tasks = await prisma.task.findMany({
+        include: {
+          assignee: true,
+        },
         orderBy: [{
           isCompleted: 'asc',
         }, {

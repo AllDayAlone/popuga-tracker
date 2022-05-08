@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import io, { Socket } from 'socket.io-client';
 import { QueryClientProvider } from 'react-query';
-import '../styles/globals.css'
 import { TaskEvent } from '../../enums';
 import queryClient from './queryClient';
 import { SessionProvider } from 'next-auth/react'
-
+import '../styles/global.css';
 /** @type {Socket | null} */
 let socket = null;
 
