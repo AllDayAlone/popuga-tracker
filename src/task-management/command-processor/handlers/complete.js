@@ -3,7 +3,7 @@ const eventBus = require('../eventBus');
 
 const prisma = new PrismaClient();
 
-const { TaskEvent, TaskStreamEvent } = require('../../enums');
+const { TaskEvent, TaskStreamEvent } = require('../../../shared/enums');
 
 module.exports = async (data) => {
   const task = await prisma.task.update({

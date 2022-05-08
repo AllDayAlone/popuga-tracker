@@ -1,4 +1,4 @@
-const { TaskCommand } = require('../enums');
+const { TaskCommand } = require('../../shared/enums');
 const Consumer = require('../../shared/Consumer');
 
 const handlers = {

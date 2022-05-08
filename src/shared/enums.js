@@ -17,4 +17,15 @@ const TaskStreamEvent = {
   Deleted: 'task.deleted',
 };
 
-module.exports = { TaskCommand, TaskEvent, TaskStreamEvent };
+const UserEvent = {
+  Registered: 'user.registered',
+  SignedIn: 'user.signedIn',
+};
+
+const UserStreamEvent = {
+  Created: 'user.created',
+};
+
+module.exports = {
+  UserEvent, UserStreamEvent, TaskCommand, TaskEvent, TaskStreamEvent,
+};

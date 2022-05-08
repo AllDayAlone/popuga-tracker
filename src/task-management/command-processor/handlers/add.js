@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const _ = require('lodash');
 const eventBus = require('../eventBus');
-const { TaskEvent, TaskStreamEvent } = require('../../enums');
+const { TaskEvent, TaskStreamEvent } = require('../../../shared/enums');
 
 const prisma = new PrismaClient();
 

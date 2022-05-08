@@ -1,10 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const Consumer = require('../../shared/Consumer');
+const { UserStreamEvent } = require('../../shared/enums');
 
 const prisma = new PrismaClient();
 
 const handlers = {
-  'user.created': async ({ user }) => {
+  [UserStreamEvent.Created]: async ({ user }) => {
     await prisma.user.create({
       data: {
         publicId: user.id,

@@ -4,7 +4,7 @@ const eventBus = require('../eventBus');
 
 const prisma = new PrismaClient();
 
-const { TaskEvent, TaskStreamEvent } = require('../../enums');
+const { TaskEvent, TaskStreamEvent } = require('../../../shared/enums');
 
 const mapPick = (collection, fields) => _.map(collection, (item) => _.pick(item, fields));
 

@@ -3,6 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import eventBus from '../../../helpers/eventBus'
+import { UserEvent, UserStreamEvent } from '../../../../../shared/enums'
 
 const prisma = new PrismaClient()
 
@@ -15,15 +16,26 @@ const options = {
     }),
   ],
   events: {
-    async signIn(message) { /* on successful sign in */ },
+    async signIn(message) {
+      /* on successful sign in */
+      await eventBus.emit({
+        name: UserEvent.SignedIn,
+        data: { publicId: message.user.id }
+      });
+    },
     async signOut(message) { /* on signout */ },
     async createUser(message) {
       /* user created */
 
       await eventBus.emit({
-        name: 'user.created',
-        data: message
-      })
+        name: UserStreamEvent.Created,
+        data: { user: message.user }
+      });
+
+      await eventBus.emit({
+        name: UserEvent.Registered,
+        data: { user: message.user }
+      });
     },
     async updateUser(message) { /* user updated - e.g. their email was verified */ },
     async linkAccount(message) { /* account (e.g. Twitter) linked to a user */ },

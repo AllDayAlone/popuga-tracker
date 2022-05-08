@@ -1,11 +1,9 @@
 import Producer from "../../../shared/Producer";
-
-const UserStream = {
-  Created: 'user.created'
-}
+import { UserStreamEvent, UserEvent } from "../../../shared/enums";
 
 const topics = [
-  { name: 'user-stream', messageNames: Object.values(UserStream) },
+  { name: 'user-stream', messageNames: Object.values(UserStreamEvent) },
+  { name: 'user-events', messageNames: Object.values(UserEvent) },
 ];
 
 export default new Producer({ topics });

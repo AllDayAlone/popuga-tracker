@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import commandBus from '../../../helpers/commandBus';
-import { TaskCommand } from '../../../../enums';
+import { TaskCommand } from '../../../../../shared/enums';
 
 const prisma = new PrismaClient();
 

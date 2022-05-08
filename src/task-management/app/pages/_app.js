@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import io, { Socket } from 'socket.io-client';
 import { QueryClientProvider } from 'react-query';
-import { TaskEvent } from '../../enums';
+import { TaskEvent } from '../../../shared/enums';
 import queryClient from './queryClient';
 import { SessionProvider } from 'next-auth/react'
 import '../styles/global.css';
@@ -32,9 +32,9 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider session={pageProps.session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      {/* <SessionProvider session={pageProps.session}> */}
+      <Component {...pageProps} />
+      {/* </SessionProvider> */}
     </QueryClientProvider>
   );
 }

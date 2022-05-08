@@ -1,4 +1,4 @@
-import { TaskCommand } from '../../enums';
+import { TaskCommand } from '../../../shared/enums';
 import Producer from '../../../shared/Producer';
 
 const topics = [
