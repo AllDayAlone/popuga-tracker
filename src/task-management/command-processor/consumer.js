@@ -11,10 +11,10 @@ const consumer = new Consumer({
   groupId: 'tracker-processor-2',
   topics: ['task-commands'],
   eachMessage: async (command) => {
-    const handler = handlers[command.name];
+    const handler = handlers[command.eventName];
 
     if (!handler) {
-      console.log(`No handler for ${command.name} command.`);
+      console.log(`No handler for ${command.eventName} command.`);
       return;
     }
 

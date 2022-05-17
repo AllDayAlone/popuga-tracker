@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "task.assigned.v1",
+  "description": "json schema for task assigned event (version 1)",
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "task": {
+          "type": "object",
+          "properties": { "publicId": { "type": "string" } },
+          "required": [ "publicId" ]
+        },
+        "user": {
+          "type": "object",
+          "properties": { "publicId": { "type": "string" } },
+          "required": [ "publicId" ]
+        }
+      },
+      "required": [ "user", "task" ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventVersion": { "enum": [ 1 ] },
+    "eventName": { "type": "string" },
+    "eventTime": { "type": "string" },
+    "producer": { "type": "string" },
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+  "required": [ "eventId", "eventVersion", "eventName", "eventTime", "producer", "data" ]
+}
