@@ -23,9 +23,8 @@ module.exports = async (data) => {
   await eventBus.emit({
     name: TaskEvent.Completed,
     data: {
-      task: {
-        publicId: task.publicId,
-      },
+      taskPublicId: task.publicId,
+      assigneePublicId: task.assigneePublicId,
     },
   });
 };

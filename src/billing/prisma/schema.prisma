@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userPublicId String        @unique
+  Transaction  Transaction[]
+}
+
+model BillingCycle {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  from  DateTime
+  to    DateTime
+  state BillingCycleState @default(initial)
+
+  Transaction Transaction[]
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  account        Account         @relation(fields: [accountId], references: [id])
+  billingCycle   BillingCycle    @relation(fields: [billingCycleId], references: [id])
+  type           TransactionType
+  task           Task?           @relation(fields: [taskId], references: [id])
+  income         Int
+  charge         Int
+  date           DateTime
+  accountId      Int
+  billingCycleId Int
+  taskId         Int?
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  taskPublicId String        @unique
+  title        String
+  assignCost   Int
+  bountyCost   Int
+  Transaction  Transaction[]
+}
+
+enum BillingCycleState {
+  initial
+  open
+  closed
+}
+
+enum TransactionType {
+  bounty
+  assign_fee
+  payout
+}

@@ -34,8 +34,8 @@ export default (data, eventName, { version }) => {
       failure: !valid && validate.errors,
     };
   } catch (error) {
-    console.log('Unknown event', error);
-    // @todo: to support events without schema
+    console.log('Unknown event', { eventName, version });
+    // @todo: support events without schema
     return {
       success: true,
     };

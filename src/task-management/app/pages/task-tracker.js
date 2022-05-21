@@ -35,6 +35,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Task management dashboard</h1>
+
       <div>
         {session?.user ? <p>Session: {JSON.stringify(session)}</p> : <p>Anonymous</p>}
         {session?.user ? <a href="http://localhost:3002">Profile</a> : <a href="http://localhost:3002/api/auth/signin">Go to SSO</a>}
