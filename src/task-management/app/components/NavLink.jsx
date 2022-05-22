@@ -36,11 +36,11 @@ const NavLink = ({ children, glyph, ...props }) => {
     isActive,
   ])
 
-  const color = isActive ? 'black' : 'gray';
+  const textColor = isActive ? 'text-black' : 'text-gray';
 
   return (
     <Link {...props}>
-      <li className={`h-10 first:mt-0 mt-4 cursor-pointer items-center flex text-${color}`}>
+      <li className={`h-10 pl-4 first:mt-0 mt-4 rounded-lg cursor-pointer items-center flex from-white to-transparent hover:bg-gradient-to-r ${textColor}`}>
         <Icon glyph={glyph} />
         <a className="ml-4">{children}</a>
         {isActive && <div className="w-1 rounded-tl-lg rounded-bl-lg rounded-b-1 h-10 bg-black ml-auto" />}

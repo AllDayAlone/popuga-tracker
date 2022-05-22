@@ -16,6 +16,7 @@ model Account {
   updatedAt DateTime @updatedAt
 
   userPublicId String        @unique
+  userName     String?
   Transaction  Transaction[]
 }
 
@@ -41,7 +42,6 @@ model Transaction {
   task           Task?           @relation(fields: [taskId], references: [id])
   income         Int
   charge         Int
-  date           DateTime
   accountId      Int
   billingCycleId Int
   taskId         Int?

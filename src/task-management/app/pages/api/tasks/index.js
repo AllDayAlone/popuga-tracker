@@ -13,7 +13,7 @@ export default async function handler(req, res) {
           title: req.body.title
         }
       })
-      res.redirect('/tasks');
+      res.redirect('/');
       break;
     case 'GET':
       const tasks = await prisma.task.findMany({

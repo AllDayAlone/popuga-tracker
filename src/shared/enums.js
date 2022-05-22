@@ -29,6 +29,7 @@ const UserStreamEvent = {
 const BillingEvent = {
   AssignFeeCharged: 'billing.assignFeeCharged',
   BountyPaid: 'billing.bountyPaid',
+  PayoutSent: 'billing.payoutSent',
 };
 
 module.exports = {

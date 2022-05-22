@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const Consumer = require('../../../shared/Consumer');
-const { TaskEvent } = require('../../../shared/enums');
+const { TaskEvent, BillingEvent } = require('../../../shared/enums');
+const eventBus = require('../eventBus');
 
 const prisma = new PrismaClient();
 
@@ -14,7 +15,7 @@ const handlers = {
       orderBy: { id: 'desc' },
     });
 
-    await prisma.transaction.create({
+    const transaction = await prisma.transaction.create({
       data: {
         account: {
           connect: {
@@ -34,7 +35,15 @@ const handlers = {
         type: 'assign_fee',
         income: 0,
         charge: task.assignCost,
-        date: new Date(),
+      },
+    });
+
+    await eventBus.emit({
+      name: BillingEvent.PayoutSent,
+      data: {
+        userPublicId: assigneePublicId,
+        billingCycleDate: billingCycle.from,
+        amount: transaction.charge,
       },
     });
   },
@@ -47,7 +56,7 @@ const handlers = {
       orderBy: { id: 'desc' },
     });
 
-    await prisma.transaction.create({
+    const transaction = await prisma.transaction.create({
       data: {
         account: {
           connect: {
@@ -67,7 +76,15 @@ const handlers = {
         type: 'bounty',
         income: task.bountyCost,
         charge: 0,
-        date: new Date(),
+      },
+    });
+
+    await eventBus.emit({
+      name: BillingEvent.PayoutSent,
+      data: {
+        userPublicId: assigneePublicId,
+        billingCycleDate: billingCycle.from,
+        amount: transaction.income,
       },
     });
   },

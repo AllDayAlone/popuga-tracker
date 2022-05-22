@@ -11,8 +11,8 @@ const handlers = {
       data: {
         taskPublicId,
         title,
-        assignCost: _.random(10, 21),
-        bountyCost: _.random(20, 41),
+        assignCost: _.random(10, 21) * 100,
+        bountyCost: _.random(20, 41) * 100,
       },
     });
   },

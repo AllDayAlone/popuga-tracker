@@ -6,11 +6,14 @@ const prisma = new PrismaClient();
 
 const handlers = {
   [UserStreamEvent.Created]: async ({ user }) => {
-    await prisma.account.create({
-      data: {
-        userPublicId: user.id,
-      },
-    });
+    if (user.role === 'worker') {
+      await prisma.account.create({
+        data: {
+          userPublicId: user.id,
+          userName: user.name,
+        },
+      });
+    }
   },
 };
 

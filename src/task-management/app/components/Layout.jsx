@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <aside className={styles.sidebar}>
-        <div className="flex flex-col">
+        <div className="flex flex-col pl-4">
           <span className="inline-block h-10 w-10 rounded-full bg-parrot bg-cover bg-center" />
           <span className="mt-2 text-lg text-black">Jolie Redfeather</span>
           <span className="mt-1 text-sm text-gray">Admin</span>
@@ -18,7 +18,7 @@ export default function Layout({ children }) {
           <Navlink glyph="analytics" href="/analytics">Analytics</Navlink>
         </ul>
 
-        <footer className="mt-auto">
+        <footer className="pl-4 mt-auto">
           <span className="text-2xl font-semibold">aTES</span><br />
           <span className="text-sm font-semibold">by UberPopug Inc</span>
         </footer>

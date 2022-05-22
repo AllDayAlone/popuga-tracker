@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "payout.sent.v1",
+  "description": "json schema for payout sent event (version 1)",
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "userPublicId"    : { "type": "string" },
+        "amount"          : { "type": "number" },
+        "billingCycleDate": { "type": "string" }
+      },
+      "required": [ "userPublicId", "amount", "billingCycleDate" ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventVersion": { "enum": [ 1 ] },
+    "eventName": { "type": "string" },
+    "eventTime": { "type": "string" },
+    "producer": { "type": "string" },
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+  "required": [ "eventId", "eventVersion", "eventName", "eventTime", "producer", "data" ]
+}
