@@ -18,17 +18,17 @@ class Consumer {
     await this.consumer.run({
 
       eachMessage: async ({ topic, partition, message }) => {
-        /** @type {{ name: string, data: object }} */
+        /** @type {{ eventName: string, data: object }} */
         const command = JSON.parse(message.value);
 
-        console.log(`Received ${command.name} ${topic}[${partition}][${message.offset}]. Start processing...`);
+        console.log(`Received ${command.eventName} ${topic}[${partition}][${message.offset}]. Start processing...`);
 
         try {
           await this.eachMessage(command);
 
-          console.log(`Processed ${command.name} ${topic}[${partition}][${message.offset}].`);
+          console.log(`Processed ${command.eventName} ${topic}[${partition}][${message.offset}].`);
         } catch (error) {
-          console.log(`Failed to process ${command.name} ${topic}[${partition}][${message.offset}]. Error:`, error);
+          console.log(`Failed to process ${command.eventName} ${topic}[${partition}][${message.offset}]. Error:`, error);
         }
       },
     });

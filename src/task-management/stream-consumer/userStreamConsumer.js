@@ -20,10 +20,10 @@ const consumer = new Consumer({
   groupId: 'task-management-consumer',
   topics: ['user-stream'],
   eachMessage: async (command) => {
-    const handler = handlers[command.name];
+    const handler = handlers[command.eventName];
 
     if (!handler) {
-      console.log(`No handler for ${command.name} command.`);
+      console.log(`No handler for ${command.eventName} command.`);
       return;
     }
 

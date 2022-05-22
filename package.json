@@ -23,6 +23,7 @@
   "homepage": "https://github.com/AllDayAlone/popuga-tracker#readme",
   "dependencies": {
     "@prisma/client": "^3.13.0",
+    "ajv": "^8.11.0",
     "express": "^4.18.1",
     "kafkajs": "^2.0.0",
     "lodash": "^4.17.21",

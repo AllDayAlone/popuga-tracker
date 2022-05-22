@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "task.shuffledOpen.v1",
+  "description": "json schema for shuffled open task event (version 1)",
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": { "publicId": { "type": "string" }, "assigneePublicId": { "type": "string" } },
+            "required": [ "publicId", "assigneePublicId" ]
+          }
+        }
+      },
+      "required": [ "user", "task" ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventVersion": { "enum": [ 1 ] },
+    "eventName": { "type": "string" },
+    "eventTime": { "type": "string" },
+    "producer": { "type": "string" },
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+  "required": [ "eventId", "eventVersion", "eventName", "eventTime", "producer", "data" ]
+}

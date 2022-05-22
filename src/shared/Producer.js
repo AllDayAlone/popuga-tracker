@@ -1,12 +1,21 @@
 const { Kafka } = require('kafkajs');
 const { v4: uuid } = require('uuid');
 
+let validateEvent;
+
+if (module.path) {
+  validateEvent = require('../schema-registry/src/validateEvent');
+} else {
+  validateEvent = require('../schema-registry/dist/src/validateEvent').default;
+}
+
 class Producer {
-  constructor({ topics }) {
+  constructor({ producerName, topics }) {
     this.kafka = new Kafka({ brokers: ['localhost:9092'] });
     this.producer = this.kafka.producer();
 
     this.topics = topics;
+    this.producerName = producerName;
 
     if (!topics) {
       throw new Error('Provide topics for producer');
@@ -26,20 +35,35 @@ class Producer {
     });
   }
 
-  async emit(command) {
-    const topic = this.getTopic(command.name);
+  async emit({
+    id, name, data, version,
+  } = {}) {
+    const event = {
+      eventId: id ?? uuid(),
+      eventVersion: version ?? 1,
+      eventName: name,
+      eventTime: new Date(),
+      producer: this.producerName,
+      data,
+    };
+    const validationResult = validateEvent(event, event.eventName, { version });
+
+    if (validationResult.failure) {
+      console.log(`Failed to send event ${event.eventName}`, validationResult.failure, event);
+      return;
+    }
+
+    const topic = this.getTopic(event.eventName);
     const message = {
-      key: command.key ?? uuid(),
-      value: JSON.stringify(command),
+      key: event.eventId,
+      value: JSON.stringify(event),
     };
 
     await this.producer.connect();
     await this.producer.send({ topic, messages: [message] });
 
-    console.log(`Pushed ${command.name} to ${topic}`);
+    console.log(`Pushed ${event.eventName} to ${topic}`);
     await this.producer.disconnect();
-
-    return message;
   }
 
   getTopic(commandName) {

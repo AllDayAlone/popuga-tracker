@@ -34,7 +34,7 @@ const consumer = new Consumer({
   topics: ['task-events'],
   eachMessage: async (command) => {
     await Promise.all(sockets.map(async (socket) => {
-      await socket.emit(command.name, JSON.stringify(command));
+      await socket.emit(command.eventName, JSON.stringify(command));
     }));
   },
 

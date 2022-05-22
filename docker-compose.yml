@@ -5,8 +5,8 @@ services:
     ports:
       - 2181:2181
     volumes:
-      - .dev/zookeeper/data:/var/lib/zookeeper/data
-      - .dev/zookeeper/logs:/var/lib/zookeeper/log
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
     healthcheck:
       test: [ "CMD-SHELL", "echo ruok | nc -w 2 zookeeper 2181" ]
       interval: 30s
@@ -21,7 +21,7 @@ services:
     ports:
       - 9092:9092
     volumes:
-      - .dev/kafka/data:/var/lib/kafka/data
+      - kafka-data:/var/lib/kafka/data
     environment:
       - KAFKA_BROKE_ID=1001
       - KAFKA_NUM_PARTITIONS=3
@@ -38,7 +38,7 @@ services:
     ports:
       - 5433:5432
     volumes:
-      - .dev/postgres/:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: popugword
 
@@ -57,3 +57,9 @@ services:
 networks:
   default:
     name: popuga-network
+
+volumes:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  postgres-data:
