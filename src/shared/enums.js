@@ -26,6 +26,12 @@ const UserStreamEvent = {
   Created: 'user.created',
 };
 
+const BillingEvent = {
+  AssignFeeCharged: 'billing.assignFeeCharged',
+  BountyPaid: 'billing.bountyPaid',
+  PayoutSent: 'billing.payoutSent',
+};
+
 module.exports = {
-  UserEvent, UserStreamEvent, TaskCommand, TaskEvent, TaskStreamEvent,
+  UserEvent, UserStreamEvent, TaskCommand, TaskEvent, TaskStreamEvent, BillingEvent,
 };

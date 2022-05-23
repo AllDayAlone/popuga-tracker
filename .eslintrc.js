@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'no-console': 0,
     'global-require': 0,
+    'import/no-extraneous-dependencies': 0,
   },
 };

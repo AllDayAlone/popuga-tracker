@@ -12,6 +12,7 @@ module.exports = async (data) => {
     },
   });
   const assignee = _.sample(workers);
+
   const task = await prisma.task.create({
     data: {
       title: data.title,
@@ -21,18 +22,17 @@ module.exports = async (data) => {
 
   await eventBus.emit({
     name: TaskStreamEvent.Created,
-    data: { task },
+    data: {
+      taskPublicId: task.publicId,
+      title: task.title,
+    },
   });
 
   await eventBus.emit({
     name: TaskEvent.Assigned,
     data: {
-      task: {
-        publicId: task.publicId,
-      },
-      user: {
-        publicId: assignee.publicId,
-      },
+      taskPublicId: task.publicId,
+      assigneePublicId: assignee.publicId,
     },
   });
 
